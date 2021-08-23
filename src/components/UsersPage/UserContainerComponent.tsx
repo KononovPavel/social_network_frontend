@@ -10,6 +10,10 @@ import {
     unfollowAC, unFollowThunk,
 } from "../../redux/reducers/userReducer";
 import UsersPageClassComponent from "./UsersPageClassComponent/UsersPageClassComponent";
+import RedirectHOC from "../../hoc/RedirectHOC";
+import {compose} from "redux";
+import React from "react";
+
 
 const mapStateToProps = (state: StoreType) => {
     return {
@@ -19,7 +23,6 @@ const mapStateToProps = (state: StoreType) => {
         currentPage: state.userReducer.currentPage,
         IS_PROGRESSING: state.userReducer.IS_PROGRESSING,
         IS_FOLLOW_PROGRESS:state.userReducer.IS_FOLLOW_PROGRESS,
-        isAuth: state.authReducer.isAuth
     }
 }
 const mapDispatchToProps = {
@@ -35,5 +38,7 @@ const mapDispatchToProps = {
     followThunk:followThunk,
     unFollowThunk:unFollowThunk
 }
-
-export const UserContainerComponent = connect(mapStateToProps, mapDispatchToProps)(UsersPageClassComponent);
+export const  UserContainerComponent = compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    RedirectHOC
+)(UsersPageClassComponent);

@@ -17,8 +17,8 @@ const App = () => {
                     <Route path={"/dialogs"} render={() => <DialogsContainerComponent/>}/>
                     <Route path={"/profile/:userId?"} render={() => <ProfileContainerComponent/>}/>
                     <Route path={"/users"} render={() => <UserContainerComponent/>}/>
-                    <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
-                    <Route path={'/login'} exact render={() => <Login/>}/>
+                    <Route path={'/'}  render={() => <Redirect to={'/profile'}/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
                     <HeaderContainerComponent/>
                     <Navbar/>
                 </div>

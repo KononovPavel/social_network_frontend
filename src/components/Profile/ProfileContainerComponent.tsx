@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import p from "./Profile.module.css";
 import {Profile} from "./Profile";
 import {connect} from 'react-redux';
 import {StoreType} from "../../redux/redux-store";
 import {getUserProfile, profileType, setUserProfileAC} from "../../redux/reducers/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import RedirectHOC from '../../hoc/RedirectHOC';
+import {compose} from "redux";
 
 
 
@@ -36,7 +38,7 @@ class ProfileContainerComponent extends React.Component<PropsType> {
     render() {
         return (
             <div className={p.profile}>
-                <Profile profile={this.props.profile} isAuth={this.props.isAuth}/>
+                <Profile profile={this.props.profile}/>
             </div>
 
         )
@@ -53,6 +55,9 @@ let mapDispatchToProps = {
     getProfile:getUserProfile
 } as MDPT
 
- let withURLDataContainerComponent = withRouter(ProfileContainerComponent)
+export default compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    RedirectHOC
+)(ProfileContainerComponent)
 
-export default connect(mapStateToProps, mapDispatchToProps)(withURLDataContainerComponent);

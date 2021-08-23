@@ -5,13 +5,12 @@ import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import CreateMessage from "./Message/CreateMessage/CreateMessage";
 import {DialogDataType} from "../../redux/reducers/dialogsReducer";
-import {Redirect} from "react-router-dom";
 
 type PropsType = {
     DialogData: DialogDataType,
     addMessageCallback: () => void,
     updateMessageCallback: (value: string) => void,
-    isAuth: boolean
+
 }
 
 export const Dialogs: React.FC<PropsType> = (
@@ -19,12 +18,8 @@ export const Dialogs: React.FC<PropsType> = (
         DialogData,
         updateMessageCallback,
         addMessageCallback,
-        isAuth,
     }) => {
 
-    if (!isAuth) {
-        return <Redirect to={'/login'}/>
-    }
     return (
         <div className={p.profile}>
             <h4 className={d.dialogs}>Dialogs</h4>

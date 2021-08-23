@@ -2,13 +2,14 @@ import {Dialogs} from "./Dialogs";
 import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../redux/reducers/dialogsReducer";
 import {connect} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
+import RedirectHOC from "../../hoc/RedirectHOC";
+import {ComponentType} from "react";
 
 
 const mapStateToProps = (state: StoreType) => {
     return {
         DialogData: state.dialogsReducer,
-        isAuth: state.authReducer.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -21,4 +22,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         }
     }
 }
-export const DialogsContainerComponent = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+export const DialogsContainerComponent = compose<ComponentType>
+(
+    connect(mapStateToProps, mapDispatchToProps),
+    RedirectHOC
+)(Dialogs);

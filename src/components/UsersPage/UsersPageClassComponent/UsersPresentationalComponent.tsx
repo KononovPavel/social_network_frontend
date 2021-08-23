@@ -17,7 +17,6 @@ type PropsType = {
     IS_FOLLOW_PROGRESS: number[],
     unFollowThunk: (value: number) => void,
     followThunk: (value: number) => void,
-    isAuth:boolean
 }
 
 const UsersPresentationalComponent: React.FC<PropsType> = (props) => {
@@ -26,7 +25,6 @@ const UsersPresentationalComponent: React.FC<PropsType> = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <>
             <div className={u.pages}>

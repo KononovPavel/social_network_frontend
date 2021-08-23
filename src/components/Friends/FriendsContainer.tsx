@@ -4,7 +4,8 @@ import {StoreType} from "../../redux/redux-store";
 
 const mapStateToProps = (state:StoreType)=>{
     return{
-        friends:state.sideBarReducer.friends
+        friends:state.sideBarReducer.friends,
+        isAuth: state.authReducer.isAuth
     }
 }
 export const FriendsContainer = connect(mapStateToProps)(Friends)

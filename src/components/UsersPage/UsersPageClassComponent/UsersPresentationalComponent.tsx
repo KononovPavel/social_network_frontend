@@ -2,6 +2,7 @@ import React from 'react';
 import u from "../UserPageComponent/UsersPage.module.css";
 import UserItem from "../UserItem/UserItem";
 import {userType} from "../../../redux/reducers/userReducer";
+import {Redirect} from "react-router-dom";
 
 
 type PropsType = {
@@ -15,7 +16,8 @@ type PropsType = {
     followingProgress: (value: boolean, userId: number) => void
     IS_FOLLOW_PROGRESS: number[],
     unFollowThunk: (value: number) => void,
-    followThunk: (value: number) => void
+    followThunk: (value: number) => void,
+    isAuth:boolean
 }
 
 const UsersPresentationalComponent: React.FC<PropsType> = (props) => {
@@ -24,6 +26,7 @@ const UsersPresentationalComponent: React.FC<PropsType> = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+    if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <>
             <div className={u.pages}>

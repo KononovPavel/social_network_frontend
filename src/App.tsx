@@ -6,6 +6,7 @@ import {DialogsContainerComponent} from "./components/Dialogs/DialogsContainer";
 import {UserContainerComponent} from "./components/UsersPage/UserContainerComponent";
 import ProfileContainerComponent from "./components/Profile/ProfileContainerComponent";
 import HeaderContainerComponent from "./components/Header/HeaderContainer/HeaderContainerComponent";
+import Login from "./components/Login/Login";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path={"/profile/:userId?"} render={() => <ProfileContainerComponent/>}/>
                     <Route path={"/users"} render={() => <UserContainerComponent/>}/>
                     <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                    <Route path={'/login'} exact render={() => <Login/>}/>
                     <HeaderContainerComponent/>
                     <Navbar/>
                 </div>

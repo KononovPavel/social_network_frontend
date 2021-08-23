@@ -18,7 +18,8 @@ const mapStateToProps = (state: StoreType) => {
         totalCount: state.userReducer.totalCount,
         currentPage: state.userReducer.currentPage,
         IS_PROGRESSING: state.userReducer.IS_PROGRESSING,
-        IS_FOLLOW_PROGRESS:state.userReducer.IS_FOLLOW_PROGRESS
+        IS_FOLLOW_PROGRESS:state.userReducer.IS_FOLLOW_PROGRESS,
+        isAuth: state.authReducer.isAuth
     }
 }
 const mapDispatchToProps = {

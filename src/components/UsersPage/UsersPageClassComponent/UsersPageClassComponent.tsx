@@ -22,7 +22,8 @@ type PropsType = {
     getUsersWithThunk:(currentPage:number, pageSize:number)=> void,
     getUsersWithPaginationThunk:(currentPage:number, pageSize:number) =>void,
     unFollowThunk:(value:number)=>void,
-    followThunk:(value:number)=>void
+    followThunk:(value:number)=>void,
+    isAuth:boolean
 
 }
 
@@ -52,6 +53,7 @@ class UsersPageClassComponent extends React.Component<PropsType> {
                 IS_FOLLOW_PROGRESS={this.props.IS_FOLLOW_PROGRESS}
                 followThunk={this.props.followThunk}
                 unFollowThunk={this.props.unFollowThunk}
+                isAuth={this.props.isAuth}
             />
 
         </div>

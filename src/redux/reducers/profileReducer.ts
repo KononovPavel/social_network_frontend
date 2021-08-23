@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../../API/API";
 
 
 const ADD_POST = "ADD_POST"; // добавить пост
@@ -22,7 +24,7 @@ export type profileType = {
     userId: number,
     photos: {
         small: string | undefined,
-        large: string| undefined
+        large: string | undefined
     }
 }
 
@@ -88,12 +90,17 @@ export const profileReducer = (state: InitialStateType = initialState, action: a
         case UPDATE_NEW_POST:
             return {...state, newPostText: action.updateText}
         case SET_USER_PROFILE: {
-            return {...state, profile: action.profile }
+            return {...state, profile: action.profile}
         }
         default:
             return state;
     }
 }
-export const addPostActionCreator = () => ({ type: ADD_POST})
+export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostActionCreator = (newPost: string) => ({type: UPDATE_NEW_POST, updateText: newPost})
-export const setUserProfileAC = (profile: profileType) => ({type: SET_USER_PROFILE, profile: profile} )
+export const setUserProfileAC = (profile: profileType) => ({type: SET_USER_PROFILE, profile: profile})
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfileAC(response.data))
+    })
+}

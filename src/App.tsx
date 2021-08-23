@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Navbar} from "./components/Navbar/Navbar";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {DialogsContainerComponent} from "./components/Dialogs/DialogsContainer";
+import {UserContainerComponent} from "./components/UsersPage/UserContainerComponent";
+import ProfileContainerComponent from "./components/Profile/ProfileContainerComponent";
+import HeaderContainerComponent from "./components/Header/HeaderContainer/HeaderContainerComponent";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <div className={'content'}>
+                <div className='app-wrapper'>
+                    <Route path={"/dialogs"} render={() => <DialogsContainerComponent/>}/>
+                    <Route path={"/profile/:userId?"} render={() => <ProfileContainerComponent/>}/>
+                    <Route path={"/users"} render={() => <UserContainerComponent/>}/>
+                    <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
+                    <HeaderContainerComponent/>
+                    <Navbar/>
+                </div>
+            </div>
+
+        </BrowserRouter>
+    )
 }
 
 export default App;

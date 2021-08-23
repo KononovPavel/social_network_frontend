@@ -1,0 +1,54 @@
+.post{
+   display: grid;
+    grid-template-areas:
+     "ava fam msg lCount btnDelete";
+    grid-template-columns: 1fr 3fr 7fr 2fr 1fr;
+    grid-template-rows: 2fr;
+    grid-gap: 20px;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}
+.post:hover{
+    background-color: #65c8ff;
+}
+.likesCount{
+    grid-area: lCount;
+    margin-top: 12px;
+}
+.message{
+    margin-left: 50px;
+    grid-area: msg;
+    text-align: left;
+    margin-top: 12px;
+}
+
+.fam{
+    grid-area: fam;
+    text-align: center;
+    margin-top: 12px;
+}
+.avatar{
+    grid-area: ava;
+
+}
+.avatar img{
+    margin-left: 5px;
+    margin-top: 5px;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+}
+.delete{
+    grid-area: btnDelete;
+    width: 25px;
+    height: 25px;
+    margin-top: 18px;
+    color: black;
+    background-color: gray;
+    margin-left: 10px;
+}
+.delete:hover{
+    background-color: white;
+}
+

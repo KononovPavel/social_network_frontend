@@ -1,0 +1,30 @@
+.friends {
+    color: white;
+    font-family: Monaco, sans-serif;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.View {
+    display: grid;
+    grid-template-areas: "img name ";
+    grid-template-columns:30px 45px;
+    float: left;
+    padding: 0;
+    margin-right: 35px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.name{
+    grid-area: name;
+    margin-left: 5px;
+}
+
+.img{
+    grid-area: img;
+    border-radius: 20px;
+
+}
+

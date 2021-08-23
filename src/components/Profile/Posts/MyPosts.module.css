@@ -1,0 +1,37 @@
+.Posts p{
+    font-size: 35px;
+    font-family: Arial, serif;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+.input{
+    text-align: center;
+}
+.input textarea{
+    width: 80%;
+    max-width: 80%;
+    height: 60px;
+    background-color: #E6EEEA;
+    border: none;
+    font-size: 24px;
+    border-radius: 3px;
+}
+.btn{
+    margin-left: 700px;
+    background-color: black;
+    color:white;
+    border: none;
+    height: 36px;
+    width: 162px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    font-size: 26px;
+    border-radius: 3px;
+}
+.btn:hover{
+    background-color: white;
+    color: black;
+}

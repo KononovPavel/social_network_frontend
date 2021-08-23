@@ -1,0 +1,31 @@
+.nav {
+    grid-area: nav;
+    background-color: coral;
+    border-radius: 5px;
+    border: 1px black solid;
+    height: 500px;
+}
+
+.Navbar {
+    padding-left: 20px;
+}
+
+.Item {
+    margin: 15px auto;
+    text-align: center;
+}
+
+.Item a {
+    text-decoration: none;
+    color: white;
+
+}
+
+.Item a:hover {
+    color: black;
+}
+
+.Item a.active {
+    color: gold;
+    font-family: Monaco ,serif;
+}

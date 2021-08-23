@@ -1,0 +1,53 @@
+.userItemBlock {
+    display: grid;
+    grid-template-areas:
+            "imageFollowBLock INFO";
+    grid-template-columns: 150px 300px;
+    grid-template-rows: 150px;
+    margin: 30px;
+}
+
+.image {
+    grid-area: image;
+}
+
+.fullName {
+    grid-area: fname;
+    font-size: 30px;
+    font-family:"GOST type B", serif;
+}
+
+.status {
+    grid-area: status;
+    font-size: 14px;
+}
+
+
+.followed {
+    grid-area: followed;
+    background: #00d060;
+    color: white;
+    border: none;
+    width: 60%;
+    height: 20%;
+
+}
+.imageFollowBLock{
+    grid-area: imageFollowBLock;
+    text-align: center;
+}
+.INFO{
+    grid-area: INFO;
+    border: 2px solid #d8d774;
+    border-radius: 20px;
+    padding: 10px;
+    display: grid;
+    grid-template-areas:
+            "fname"
+            "status";
+  grid-template-columns:450px 150px;
+}
+.img{
+    border-radius: 25px;
+}
+

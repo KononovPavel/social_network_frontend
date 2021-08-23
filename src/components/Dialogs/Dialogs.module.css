@@ -1,0 +1,51 @@
+.dialogs {
+    text-align: center;
+    font-family: Monaco;
+    margin-bottom: 15px;
+    font-size: 34px;
+}
+
+.dialogsGrid {
+    display: grid;
+    grid-template-areas: "user messages";
+    grid-template-columns: 4fr 7fr;
+    grid-gap: 5px;
+}
+
+.items {
+    grid-area: user;
+
+}
+
+.messages {
+    grid-area: messages;
+}
+
+.item {
+    padding: 10px;
+}
+.item img{
+    margin-right: 20px;
+}
+
+.item a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    border-bottom:2px solid black ;
+}
+
+.item a.active {
+    color: #fcbf00;
+    font-size: 30px;
+}
+
+.message {
+    padding: 15px;
+    color: white;
+
+}
+.message  img{
+    margin-right: 20px;
+}
+

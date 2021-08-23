@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../../API/API";
 
+
 const FOLLOW = 'FOLLOW'
 const UN_FOLLOW = 'UN_FOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -159,10 +160,10 @@ export const followThunk = (userId: number) => (dispatch: Dispatch) => {
 
 export const unFollowThunk = (userId: number) => (dispatch: Dispatch) => {
     dispatch(setIsFollowingProgress(true, userId))
-    usersAPI.unfollow(userId).then(response=>{
-        if(response.data.resultCode ===0){
-            dispatch(unfollowAC(userId))
-            dispatch(setIsFollowingProgress(false,userId))
-        }
-    })
+        usersAPI.unfollow(userId).then(response=>{
+            if(response.data.resultCode ===0){
+                dispatch(unfollowAC(userId))
+                dispatch(setIsFollowingProgress(false,userId))
+            }
+        })
 }

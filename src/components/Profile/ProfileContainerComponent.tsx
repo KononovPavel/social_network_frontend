@@ -1,7 +1,7 @@
-import React, {ComponentType} from 'react';
+import React, {ComponentType, useEffect} from 'react';
 import p from "./Profile.module.css";
 import {Profile} from "./Profile";
-import {connect} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {StoreType} from "../../redux/redux-store";
 import {getUserProfile, profileType, setUserProfileAC} from "../../redux/reducers/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -10,53 +10,35 @@ import {compose} from "redux";
 
 
 
-
-type ownPropsType = MSTP & MDPT
-type MSTP = {
-    profile : profileType,
-    isAuth:boolean
-}
-type MDPT = {
-    setProfile: (value: profileType) => void,
-    getProfile:(userId:string) => void
-}
 type ParamsType = {
-    userId:string
+    userId: string
 }
 
-type PropsType =  RouteComponentProps<ParamsType> & ownPropsType
+type PropsType = RouteComponentProps<ParamsType>
 
 
-class ProfileContainerComponent extends React.Component<PropsType> {
-    componentDidMount() {
-        let userId = this.props.match.params.userId
-        if(!userId){
-            userId ='2'
+const ProfileContainerComponent: React.FC<PropsType> = (props) => {
+
+    const dispatch = useDispatch();
+    const profile = useSelector<StoreType, profileType>(state => state.profileReducer.profile)
+
+
+    useEffect(() => {
+        let userId = props.match.params.userId
+        if (!userId) {
+            userId = '2'
         }
-        this.props.getProfile(userId);
-    }
-    render() {
+      dispatch(getUserProfile(userId))
+        }, [dispatch])
         return (
             <div className={p.profile}>
-                <Profile profile={this.props.profile}/>
+                <Profile profile={profile}/>
             </div>
 
         )
-    }
 }
 
-let mapStateToProps = (state: StoreType):MSTP => ({
-    profile: state.profileReducer.profile,
-    isAuth:state.authReducer.isAuth
-
-})
-let mapDispatchToProps = {
-    setProfile:setUserProfileAC,
-    getProfile:getUserProfile
-} as MDPT
-
 export default compose<ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),
     withRouter,
     RedirectHOC
 )(ProfileContainerComponent)

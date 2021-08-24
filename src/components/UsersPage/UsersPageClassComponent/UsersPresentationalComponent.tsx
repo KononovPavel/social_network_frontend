@@ -2,8 +2,6 @@ import React from 'react';
 import u from "../UserPageComponent/UsersPage.module.css";
 import UserItem from "../UserItem/UserItem";
 import {userType} from "../../../redux/reducers/userReducer";
-import {Redirect} from "react-router-dom";
-
 
 type PropsType = {
     users: userType[],

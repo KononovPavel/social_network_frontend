@@ -1,35 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Header} from "../Header";
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {StoreType} from "../../../redux/redux-store";
-import {dataType, getUserData, setUserDataAuthAC} from "../../../redux/reducers/authReducer";
+import {getUserData} from "../../../redux/reducers/authReducer";
 
-type PropsType = {
-    setAuthUserDataCallback: (userData: dataType) => void,
-    isAuth:boolean,
-    login:string | null,
-    getUserData:()=>void
+const HeaderContainerComponent = () => {
+
+    const dispatch = useDispatch();
+    const login = useSelector<StoreType, string | null>(state => state.authReducer.data.login)
+
+    useEffect(() => {
+        dispatch(getUserData())
+    }, [dispatch])
+
+    return <Header login={login}/>
+
 }
 
-
-class HeaderContainerComponent extends React.Component<PropsType> {
-    componentDidMount() {
-       this.props.getUserData()
-    }
-
-    render() {
-        return <Header login={this.props.login}/>;
-    }
-}
-
-let mapStateToProps = (state: StoreType) => ({
-    isAuth: state.authReducer.isAuth,
-    login:state.authReducer.data.login
-})
-
-let mapDispatchToProps = {
-    setAuthUserDataCallback: setUserDataAuthAC,
-    getUserData
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainerComponent);
+export default HeaderContainerComponent;

@@ -1,30 +1,34 @@
 import {Dialogs} from "./Dialogs";
-import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../redux/reducers/dialogsReducer";
-import {connect} from "react-redux";
+import {
+    DialogDataType,
+    sendMessageActionCreator,
+    updateNewMessageActionCreator
+} from "../../redux/reducers/dialogsReducer";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
 import {compose, Dispatch} from "redux";
 import RedirectHOC from "../../hoc/RedirectHOC";
 import {ComponentType} from "react";
 
+const DialogsContainerComponent = () => {
 
-const mapStateToProps = (state: StoreType) => {
-    return {
-        DialogData: state.dialogsReducer,
+    const dispatch = useDispatch();
+    const dialogData = useSelector<StoreType, DialogDataType>(state => state.dialogsReducer)
+
+    const addMessageCallback = () => {
+        dispatch(sendMessageActionCreator())
     }
-}
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        addMessageCallback: () => {
-            dispatch(sendMessageActionCreator())
-        },
-        updateMessageCallback: (value: string) => {
-            dispatch(updateNewMessageActionCreator(value))
-        }
+
+    const updateMessageCallback = (value: string) => {
+        dispatch(updateNewMessageActionCreator(value))
     }
+
+    return <Dialogs DialogData={dialogData} addMessageCallback={addMessageCallback} updateMessageCallback={updateMessageCallback}/>
+
 }
 
-export const DialogsContainerComponent = compose<ComponentType>
+
+export default compose<ComponentType>
 (
-    connect(mapStateToProps, mapDispatchToProps),
     RedirectHOC
-)(Dialogs);
+)(DialogsContainerComponent);

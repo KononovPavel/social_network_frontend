@@ -1,44 +1,62 @@
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
-
 import {
-    followAC, followThunk, getUsersThunk, getUsersWithPaginationThunk,
-    setCurrentPageAC, setIsFollowingProgress,
-    setIsProgressing,
-    setTotalCountPageAC,
-    setUsersAC,
-    unfollowAC, unFollowThunk,
+    followThunk,
+    getUsersThunk,
+    getUsersWithPaginationThunk,
+    InitialStateType,
+    setIsFollowingProgress,
+    unFollowThunk,
 } from "../../redux/reducers/userReducer";
-import UsersPageClassComponent from "./UsersPageClassComponent/UsersPageClassComponent";
 import RedirectHOC from "../../hoc/RedirectHOC";
 import {compose} from "redux";
-import React from "react";
+import React, {ComponentType, useEffect} from "react";
+import p from "../Profile/Profile.module.css";
+import Preloader from "../common/Preloader";
+import UsersPresentationalComponent from "./UsersPageClassComponent/UsersPresentationalComponent";
+
+const UserContainerComponent = () => {
+
+    const dispatch = useDispatch();
+    const usersState = useSelector<StoreType, InitialStateType>(state => state.userReducer)
+    useEffect(() => {
+        dispatch(getUsersThunk(usersState.currentPage, usersState.pageSize))
+    }, [dispatch])
 
 
-const mapStateToProps = (state: StoreType) => {
-    return {
-        users: state.userReducer.users,
-        pageSize: state.userReducer.pageSize,
-        totalCount: state.userReducer.totalCount,
-        currentPage: state.userReducer.currentPage,
-        IS_PROGRESSING: state.userReducer.IS_PROGRESSING,
-        IS_FOLLOW_PROGRESS:state.userReducer.IS_FOLLOW_PROGRESS,
+    const getUsersWithPagination = (page: number) => {
+        dispatch(getUsersWithPaginationThunk(page, usersState.pageSize))
     }
+
+    const followingProgress = (value: boolean, userId: number) => {
+        dispatch(setIsFollowingProgress(value, userId))
+    }
+    const followThunkCallback = (value: number) => {
+        dispatch(followThunk(value))
+    }
+    const unFollowThunkCallback = (value: number) => {
+        dispatch(unFollowThunk(value))
+    }
+
+
+    return <div className={p.profile}>
+        {usersState.IS_PROGRESSING ?
+            <Preloader/> : null}
+        <UsersPresentationalComponent
+            users={usersState.users}
+            currentPage={usersState.currentPage}
+            pageSize={usersState.pageSize}
+            getUsersWithPagination={getUsersWithPagination}
+            totalCount={usersState.totalCount}
+            followingProgress={followingProgress}
+            IS_FOLLOW_PROGRESS={usersState.IS_FOLLOW_PROGRESS}
+            followThunk={followThunkCallback}
+            unFollowThunk={unFollowThunkCallback}
+        />
+
+    </div>
 }
-const mapDispatchToProps = {
-    followCallback: followAC,
-    unfollowCallback: unfollowAC,
-    setUserCallback: setUsersAC,
-    setCurrentPageCallback: setCurrentPageAC,
-    setTotalCountCallback: setTotalCountPageAC,
-    isProgressingCallback: setIsProgressing,
-    followingProgress:setIsFollowingProgress,
-    getUsersWithThunk:getUsersThunk,
-    getUsersWithPaginationThunk:getUsersWithPaginationThunk,
-    followThunk:followThunk,
-    unFollowThunk:unFollowThunk
-}
-export const  UserContainerComponent = compose<React.ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),
+
+export default compose<ComponentType>(
     RedirectHOC
-)(UsersPageClassComponent);
+)(UserContainerComponent);

@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import {UserContainerComponent} from "./components/UsersPage/UserContainerComponent";
 import ProfileContainerComponent from "./components/Profile/ProfileContainerComponent";
 import HeaderContainerComponent from "./components/Header/HeaderContainer/HeaderContainerComponent";
 import Login from "./components/Login/Login";
 import DialogsContainerComponent from "./components/Dialogs/DialogsContainer";
+import UserContainerComponent from "./components/UsersPage/UserContainerComponent";
 
 
 const App = () => {

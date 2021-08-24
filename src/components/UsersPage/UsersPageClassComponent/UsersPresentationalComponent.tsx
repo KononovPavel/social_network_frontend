@@ -9,8 +9,6 @@ type PropsType = {
     pageSize: number,
     getUsersWithPagination: (page: number) => void,
     currentPage: number,
-    followCallback: (userId: number) => void,
-    unfollowCallback: (userID: number) => void,
     followingProgress: (value: boolean, userId: number) => void
     IS_FOLLOW_PROGRESS: number[],
     unFollowThunk: (value: number) => void,

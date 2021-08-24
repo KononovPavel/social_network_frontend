@@ -30,7 +30,7 @@ let initialState: InitialStateType = {
     IS_PROGRESSING: false,
     IS_FOLLOW_PROGRESS: []
 }
-type InitialStateType = {
+ export type InitialStateType = {
     users: userType[],
     pageSize: number,
     totalCount: number,

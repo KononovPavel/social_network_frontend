@@ -4,9 +4,9 @@ import {
     sendMessageActionCreator,
     updateNewMessageActionCreator
 } from "../../redux/reducers/dialogsReducer";
-import {connect, useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
-import {compose, Dispatch} from "redux";
+import {compose} from "redux";
 import RedirectHOC from "../../hoc/RedirectHOC";
 import {ComponentType} from "react";
 

@@ -21,7 +21,7 @@ const UserContainerComponent = () => {
     const usersState = useSelector<StoreType, InitialStateType>(state => state.userReducer)
     useEffect(() => {
         dispatch(getUsersThunk(usersState.currentPage, usersState.pageSize))
-    }, [dispatch])
+    }, [dispatch,usersState.currentPage, usersState.pageSize])
 
 
     const getUsersWithPagination = (page: number) => {

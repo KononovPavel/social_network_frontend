@@ -5,6 +5,7 @@ import {sideBarReducer} from "./reducers/sideBarReducer";
 import {userReducer} from "./reducers/userReducer";
 import {authReducer} from "./reducers/authReducer";
 import thunk from "redux-thunk";
+import {reducer as formReducer} from "redux-form";
 
 
 let rootReducer = combineReducers({
@@ -12,7 +13,8 @@ let rootReducer = combineReducers({
     dialogsReducer,
     sideBarReducer,
     userReducer,
-    authReducer
+    authReducer,
+    form:formReducer
 })
 
 export type StoreType = ReturnType<typeof rootReducer>

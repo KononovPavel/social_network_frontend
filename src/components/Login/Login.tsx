@@ -1,40 +1,66 @@
 import React from 'react';
 import p from '../Profile/Profile.module.css'
 import l from './login.module.css'
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
-const Login = () => {
+const Login: React.FC = () => {
+    const onSubmit = (formData: FormDataType) => {
+        console.log(formData)
+    }
     return (
         <div className={`${p.profile}`}>
             <div className={l.loginBLock}>
                 <h1>Вход</h1>
-                <LoginForm/>
+                <LoginReduxForm onSubmit={onSubmit}/>
             </div>
         </div>
     );
 };
 
+type FormDataType = {
+    login: string,
+    password: string,
+    rememberMe: boolean
+}
 
-const LoginForm = () => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
-        <React.Fragment>
-            <form>
+        <div>
+            <form onSubmit={props.handleSubmit}>
                 <div>
-                    <input className={l.input} type="text" placeholder={'Логин'}/>
+                    <Field
+                        className={l.input}
+                        type={'text'}
+                        placeholder={'Логин'}
+                        name={'login'}
+                        component={'input'}
+                    />
                 </div>
                 <div>
-                    <input className={l.input} type="password" placeholder={'Пароль'}/>
+                    <Field
+                        className={l.input}
+                        type="password"
+                        placeholder={'Пароль'}
+                        name={'password'}
+                        component={'input'}
+                    />
                 </div>
                 <div>
-                    <input type="checkbox"/>
+                    <Field
+                        type="checkbox"
+                        component={'input'}
+                        name={'rememberMe'}
+                    />
                     <span className={l.span}>Запомнить меня</span>
                 </div>
                 <div>
                     <button className={l.button}>Войти</button>
                 </div>
             </form>
-        </React.Fragment>
+        </div>
     )
 }
+const LoginReduxForm = React.memo(reduxForm<FormDataType>({form: 'LOGIN'})(LoginForm))
 
 
 export default Login;

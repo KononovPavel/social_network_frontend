@@ -4,7 +4,7 @@ import {Profile} from "./Profile";
 import {useDispatch, useSelector} from 'react-redux';
 import {StoreType} from "../../redux/redux-store";
 import {getUserProfile, getUserStatus, InitialStateType, updateStatus} from "../../redux/reducers/profileReducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, useParams, withRouter} from "react-router-dom";
 import RedirectHOC from '../../hoc/RedirectHOC';
 import {compose} from "redux";
 
@@ -13,20 +13,20 @@ type ParamsType = {
     userId: string
 }
 
-type PropsType = RouteComponentProps<ParamsType>
+// type PropsType = RouteComponentProps<ParamsType>
 
 
-const ProfileContainerComponent: React.FC<PropsType> = (props) => {
-
+const ProfileContainerComponent: React.FC<ParamsType> = (props) => {
+    let {userId} = useParams<ParamsType>()
     const dispatch = useDispatch();
     useEffect(() => {
-        let userId = props.match.params.userId
         if (!userId) {
             userId = '18823'
         }
+        console.log(userId)
         dispatch(getUserProfile(userId))
         dispatch(getUserStatus(userId))
-    }, [dispatch, props.match.params.userId])
+    }, [dispatch, userId])
     const profileState = useSelector<StoreType, InitialStateType>(state => state.profileReducer)
 
     const updateStatusCallback = useCallback((value: string) => {
@@ -47,7 +47,7 @@ const ProfileContainerComponent: React.FC<PropsType> = (props) => {
 }
 
 export default compose<ComponentType>(
-    withRouter,
+    // withRouter,
     RedirectHOC
 )(ProfileContainerComponent)
 

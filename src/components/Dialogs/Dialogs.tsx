@@ -5,6 +5,8 @@ import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {DialogDataType} from "../../redux/reducers/dialogsReducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import TextArea from "../common/FormsControllers/TextAreaForm/TextArea";
+import {maxLengthCreator, required} from "../../utils/formValidators/Posts/validators";
 
 type PropsType = {
     DialogData: DialogDataType,
@@ -18,7 +20,7 @@ export const Dialogs: React.FC<PropsType> = (
         addMessageCallback,
     }) => {
 
-    const onSendMessageClick = (value:FormDataType) => {
+    const onSendMessageClick = (value:FormDataDialogsType) => {
         addMessageCallback(value.newMessage)
     }
 
@@ -38,19 +40,20 @@ export const Dialogs: React.FC<PropsType> = (
         </div>
     )
 }
-type FormDataType = {
+export type FormDataDialogsType = {
     newMessage:string
 }
+const maxLength50 = maxLengthCreator(50)
 
-const  AddMessageForm:React.FC<InjectedFormProps<FormDataType>> = (props)=>{
+const  AddMessageForm:React.FC<InjectedFormProps<FormDataDialogsType>> = (props)=>{
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    component={'textarea'}
-                    type={'text'}
+                    component={TextArea}
                     name={'newMessage'}
                     placeholder={'Новое сообщение'}
+                    validate={[required,maxLength50]}
                     />
             </div>
             <div>
@@ -59,4 +62,4 @@ const  AddMessageForm:React.FC<InjectedFormProps<FormDataType>> = (props)=>{
         </form>
     )
 }
-const AddMessageFormRedux = reduxForm<FormDataType>({form:'ADD_MESSAGE_FORM'})(AddMessageForm)
+const AddMessageFormRedux = reduxForm<FormDataDialogsType>({form:'ADD_MESSAGE_FORM'})(AddMessageForm)

@@ -4,7 +4,7 @@ import l from './login.module.css'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 const Login: React.FC = () => {
-    const onSubmit = (formData: FormDataType) => {
+    const onSubmit = (formData: FormDataLoginType) => {
         console.log(formData)
     }
     return (
@@ -17,13 +17,13 @@ const Login: React.FC = () => {
     );
 };
 
-type FormDataType = {
+export type FormDataLoginType = {
     login: string,
     password: string,
     rememberMe: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataLoginType>> = (props) => {
     return (
         <div>
             <form onSubmit={props.handleSubmit}>
@@ -60,7 +60,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         </div>
     )
 }
-const LoginReduxForm = React.memo(reduxForm<FormDataType>({form: 'LOGIN'})(LoginForm))
+const LoginReduxForm = React.memo(reduxForm<FormDataLoginType>({form: 'LOGIN'})(LoginForm))
 
 
 export default Login;

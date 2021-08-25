@@ -3,6 +3,8 @@ import {PostDataType} from "../../../redux/reducers/profileReducer";
 import mPost from './MyPosts.module.css';
 import {NewPosts} from "./NewPosts/NewPosts";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/formValidators/Posts/validators";
+import TextArea from "../../common/FormsControllers/TextAreaForm/TextArea";
 
 
 type MyPostsPropsType = {
@@ -10,12 +12,13 @@ type MyPostsPropsType = {
     addPostCallback: (newPostText:string) => void
 }
 
-type FormDataType = {
+export type FormDataPostsType = {
     newPostText: string
 }
+let maxLength20 = maxLengthCreator(20)
 
 export function MyPosts(props: MyPostsPropsType) {
-    const addPost = (value:FormDataType) => {
+    const addPost = (value:FormDataPostsType) => {
         props.addPostCallback(value.newPostText)
     }
 
@@ -31,15 +34,15 @@ export function MyPosts(props: MyPostsPropsType) {
 }
 
 
-const addPost: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const addPost: React.FC<InjectedFormProps<FormDataPostsType>> = (props) => {
     return (
         <React.Fragment>
             <form onSubmit={props.handleSubmit}>
                 <Field
-                    type={'text'}
-                    component={'textarea'}
+                    component={TextArea}
                     name={'newPostText'}
                     placeholder={'Твой новый пост'}
+                    validate={[required,maxLength20]}
                 />
                 <button
                     className={mPost.btn}>
@@ -49,4 +52,4 @@ const addPost: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         </React.Fragment>
     )
 }
-const AddPostReduxForm = reduxForm<FormDataType>({form:'ADD_POST'})(addPost)
+const AddPostReduxForm = reduxForm<FormDataPostsType>({form:'ADD_POST'})(addPost)

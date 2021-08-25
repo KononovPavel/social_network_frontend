@@ -1,6 +1,5 @@
 import React, {ChangeEvent} from 'react';
 
-
 type PropsType = {
     newMessage: string,
     addMessageCallback:()=>void,
@@ -16,16 +15,15 @@ const CreateMessage: React.FC<PropsType> = ({newMessage, addMessageCallback, upd
     }
 
     return (
-        <div>
+        <form>
             <textarea
                 value={newMessage}
                 onChange={onChangeHandler}
                 placeholder={"Новое сообщение"}
             /><br/>
             <button onClick={onSendMessageClick}>Добавить сообщение</button>
-        </div>
+        </form>
     );
 }
-
 
 export default CreateMessage;

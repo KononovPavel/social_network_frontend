@@ -54,7 +54,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     <span className={l.span}>Запомнить меня</span>
                 </div>
                 <div>
-                    <button className={l.button}>Войти</button>
+                    <button  className={l.button}>Войти</button>
                 </div>
             </form>
         </div>

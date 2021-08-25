@@ -23,7 +23,6 @@ const ProfileContainerComponent: React.FC<ParamsType> = (props) => {
         if (!userId) {
             userId = '18823'
         }
-        console.log(userId)
         dispatch(getUserProfile(userId))
         dispatch(getUserStatus(userId))
     }, [dispatch, userId])

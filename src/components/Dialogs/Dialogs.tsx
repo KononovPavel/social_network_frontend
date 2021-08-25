@@ -3,22 +3,25 @@ import d from './Dialogs.module.css'
 import p from '../Profile/Profile.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import CreateMessage from "./Message/CreateMessage/CreateMessage";
 import {DialogDataType} from "../../redux/reducers/dialogsReducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type PropsType = {
     DialogData: DialogDataType,
-    addMessageCallback: () => void,
-    updateMessageCallback: (value: string) => void,
+    addMessageCallback: (newMessage:string) => void,
 
 }
 
 export const Dialogs: React.FC<PropsType> = (
     {
         DialogData,
-        updateMessageCallback,
         addMessageCallback,
     }) => {
+
+    const onSendMessageClick = (value:FormDataType) => {
+        addMessageCallback(value.newMessage)
+    }
+
 
     return (
         <div className={p.profile}>
@@ -31,12 +34,29 @@ export const Dialogs: React.FC<PropsType> = (
                     <Message messages={DialogData.messages}/>
                 </div>
             </div>
-            <CreateMessage
-                newMessage={DialogData.newMessage}
-                updateMessageCallback={updateMessageCallback}
-                addMessageCallback={addMessageCallback}
-            />
+          <AddMessageFormRedux onSubmit={onSendMessageClick}/>
         </div>
     )
-
 }
+type FormDataType = {
+    newMessage:string
+}
+
+const  AddMessageForm:React.FC<InjectedFormProps<FormDataType>> = (props)=>{
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field
+                    component={'textarea'}
+                    type={'text'}
+                    name={'newMessage'}
+                    placeholder={'Новое сообщение'}
+                    />
+            </div>
+            <div>
+                <button>Отправить</button>
+            </div>
+        </form>
+    )
+}
+const AddMessageFormRedux = reduxForm<FormDataType>({form:'ADD_MESSAGE_FORM'})(AddMessageForm)

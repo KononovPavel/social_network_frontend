@@ -27,8 +27,10 @@ export const NewPosts = (props: NewPostsPropsType) => {
             )
         }
     </div>)
-
 }
+
+
+
 
 
 

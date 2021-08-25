@@ -2,7 +2,6 @@ import {Dialogs} from "./Dialogs";
 import {
     DialogDataType,
     sendMessageActionCreator,
-    updateNewMessageActionCreator
 } from "../../redux/reducers/dialogsReducer";
 import { useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../redux/redux-store";
@@ -15,15 +14,14 @@ const DialogsContainerComponent = () => {
     const dispatch = useDispatch();
     const dialogData = useSelector<StoreType, DialogDataType>(state => state.dialogsReducer)
 
-    const addMessageCallback = () => {
-        dispatch(sendMessageActionCreator())
+    const addMessageCallback = (newMessage:string) => {
+        dispatch(sendMessageActionCreator(newMessage))
     }
 
-    const updateMessageCallback = (value: string) => {
-        dispatch(updateNewMessageActionCreator(value))
-    }
-
-    return <Dialogs DialogData={dialogData} addMessageCallback={addMessageCallback} updateMessageCallback={updateMessageCallback}/>
+    return <Dialogs
+        DialogData={dialogData}
+        addMessageCallback={addMessageCallback}
+    />
 
 }
 

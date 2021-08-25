@@ -1,17 +1,14 @@
 import {v1} from "uuid";
 
-const UPDATE_NEW_MESSAGE = "UPDATE_NEW_MESSAGE"; //изменить состояние нового поста
 const SEND_MESSAGE = "SEND_MESSAGE";
 
-type updateNewMessageAction = {
-    type:typeof UPDATE_NEW_MESSAGE,
-    newMessage: string
-}
+
 type sendMessageAction = {
-    type:typeof SEND_MESSAGE
+    type:typeof SEND_MESSAGE,
+    newMessage:string
 }
 
-type actionType = updateNewMessageAction | sendMessageAction
+type actionType = sendMessageAction
 export type  DialogDataType = {
     dialogData:dialogDataType[],
     messages:MessageDataType[],
@@ -82,20 +79,15 @@ export type InitialStateType = typeof initialState
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: actionType): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE:
-            return {...state, newMessage: action.newMessage}
 
         case SEND_MESSAGE:
             let imageURL = "https://img2.freepng.ru/20180403/veq/kisspng-avatar-male-suit-clip-art-gender-5ac3b88ecd07e6.7368561215227762068398.jpg"
             return {
                 ...state,
-                messages: [...state.messages, {id: v1(), message: state.newMessage, image: imageURL}],
-                newMessage: ''
+                messages: [...state.messages, {id: v1(), message: action.newMessage, image: imageURL}],
             };
     }
     return state;
 }
 
-export const updateNewMessageActionCreator = (newMessage: string) => ({type: UPDATE_NEW_MESSAGE, newMessage: newMessage})
-
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
+export const sendMessageActionCreator = (newMessage:string):sendMessageAction => ({type: SEND_MESSAGE, newMessage})

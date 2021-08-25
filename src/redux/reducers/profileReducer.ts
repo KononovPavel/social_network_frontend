@@ -3,8 +3,7 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../../API/API";
 
 
-const ADD_POST = "ADD_POST"; // добавить пост
-const UPDATE_NEW_POST = "UPDATE_NEW_POST";
+const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 
@@ -51,28 +50,25 @@ let initialState = {
             message: "This is second message"
         }
     ],
-    newPostText: "",
     profile: {} as profileType,
-    status:''
+    status: ''
 }
 type addPostAction = {
-    type: "ADD_POST"
+    type: "ADD_POST",
+    newPostText: string
 }
-type updateNewPostAction = {
-    type: "UPDATE_NEW_POST",
-    updateText: string
-}
+
 type setUserProfileAC = {
     type: typeof SET_USER_PROFILE,
     profile: profileType
 }
 
 type setUserStatusType = {
-    type:typeof SET_STATUS,
-    status:string
+    type: typeof SET_STATUS,
+    status: string
 }
 
-type actionType = addPostAction | updateNewPostAction | setUserProfileAC | setUserStatusType
+type actionType = addPostAction | setUserProfileAC | setUserStatusType
 export type PostDataType = {
     id: string,
     name: string,
@@ -82,52 +78,52 @@ export type PostDataType = {
     likesCount: number
 }
 
- export type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 export const profileReducer = (state: InitialStateType = initialState, action: actionType): InitialStateType => {
     switch (action.type) {
 
-        case ADD_POST:
+        case ADD_POST: {
             let newPost: PostDataType = {
                 id: v1(),
                 name: "Pavel",
                 fam: "Kononov",
                 avaLink: state.posts[0].avaLink,
-                message: state.newPostText,//сначала я через input меняю значение поста, а затем его пушу в массив постов
+                message: action.newPostText,//сначала я через input меняю значение поста, а затем его пушу в массив постов
                 likesCount: Math.round(Math.random() * 100)
             }
-            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
-        case UPDATE_NEW_POST:
-            return {...state, newPostText: action.updateText}
+            return {...state, posts: [newPost, ...state.posts],}
+        }
+
+
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
-        case SET_STATUS:{
+        case SET_STATUS: {
             return {...state, status: action.status}
         }
         default:
             return state;
     }
 }
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateNewPostActionCreator = (newPost: string) => ({type: UPDATE_NEW_POST, updateText: newPost})
+export const addPostActionCreator = (newPostText: string): addPostAction => ({type: ADD_POST, newPostText})
 export const setUserProfileAC = (profile: profileType) => ({type: SET_USER_PROFILE, profile: profile})
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId).then(response => {
         dispatch(setUserProfileAC(response.data))
     })
 }
-export  const setUserStatus = (status:string):setUserStatusType=>({type:SET_STATUS, status:status})
+export const setUserStatus = (status: string): setUserStatusType => ({type: SET_STATUS, status: status})
 
-export const getUserStatus = (userId:string)=> (dispatch:Dispatch)=>{
+export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId).then(response => {
         dispatch(setUserStatus(response.data))
     })
 }
 
-export const updateStatus = (status:string)=>(dispatch:Dispatch)=>{
-    profileAPI.updateStatus(status).then(response=>{
-        if(response.data.resultCode === 0){
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 0) {
             dispatch(setUserStatus(status))
         }
     })

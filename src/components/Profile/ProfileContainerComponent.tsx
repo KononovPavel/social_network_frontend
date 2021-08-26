@@ -4,7 +4,7 @@ import {Profile} from "./Profile";
 import {useDispatch, useSelector} from 'react-redux';
 import {StoreType} from "../../redux/redux-store";
 import {getUserProfile, getUserStatus, InitialStateType, updateStatus} from "../../redux/reducers/profileReducer";
-import {RouteComponentProps, useParams, withRouter} from "react-router-dom";
+import {RouteComponentProps, useHistory, useParams, withRouter} from "react-router-dom";
 import RedirectHOC from '../../hoc/RedirectHOC';
 import {compose} from "redux";
 
@@ -19,9 +19,15 @@ type ParamsType = {
 const ProfileContainerComponent: React.FC<ParamsType> = (props) => {
     let {userId} = useParams<ParamsType>()
     const dispatch = useDispatch();
+    const history = useHistory()
+    const id = useSelector<StoreType, any>(state => state.authReducer.data.id)
+
     useEffect(() => {
         if (!userId) {
-            userId = '18823'
+            userId = id
+            if(!userId){
+                history.push('/login')
+            }
         }
         dispatch(getUserProfile(userId))
         dispatch(getUserStatus(userId))

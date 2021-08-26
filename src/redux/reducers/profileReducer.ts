@@ -107,6 +107,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: a
     }
 }
 export const addPostActionCreator = (newPostText: string): addPostAction => ({type: ADD_POST, newPostText})
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const setUserProfileAC = (profile: profileType) => ({type: SET_USER_PROFILE, profile: profile})
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId).then(response => {

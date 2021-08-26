@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
@@ -7,9 +7,23 @@ import HeaderContainerComponent from "./components/Header/HeaderContainer/Header
 import Login from "./components/Login/Login";
 import DialogsContainerComponent from "./components/Dialogs/DialogsContainer";
 import UserContainerComponent from "./components/UsersPage/UserContainerComponent";
+import {useDispatch, useSelector} from "react-redux";
+import {initialize} from "./redux/reducers/appReducer";
+import {StoreType} from "./redux/redux-store";
+import Preloader from "./components/common/Preloader";
 
 
 const App = () => {
+
+
+    const dispatch = useDispatch();
+    const init = useSelector<StoreType, boolean>(state => state.app.initialized)
+    useEffect(() => {
+        dispatch(initialize())
+    }, [dispatch])
+    if(!init) {
+        return <Preloader/>
+    }
     return (
         <BrowserRouter>
             <div className={'content'}>

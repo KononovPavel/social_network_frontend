@@ -18,6 +18,7 @@ export const ProfileInfo: React.FC<PropsType> = (props) => {
 
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        debugger
         setStatus(e.currentTarget.value)
     }
     const changeStatus = () => {
@@ -27,6 +28,7 @@ export const ProfileInfo: React.FC<PropsType> = (props) => {
     }
 
     useEffect(() => {
+        debugger
         if (status !== props.status) {
             setStatus(props.status)
         }

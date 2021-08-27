@@ -19,16 +19,15 @@ type ParamsType = {
 const ProfileContainerComponent: React.FC<ParamsType> = (props) => {
     let {userId} = useParams<ParamsType>()
     const dispatch = useDispatch();
-    const history = useHistory()
-    const id = useSelector<StoreType, any>(state => state.authReducer.data.id)
-
+    // const history = useHistory()
+    // const id = useSelector<StoreType, any>(state => state.authReducer.data.id)
     useEffect(() => {
-        if (!userId) {
-            userId = id
-            if(!userId){
-                history.push('/login')
-            }
-        }
+        // if (!userId) {
+        //     userId = id
+        //     if(!userId){
+        //         history.push('/login')
+        //     }
+        // }
         dispatch(getUserProfile(userId))
         dispatch(getUserStatus(userId))
     }, [dispatch, userId])

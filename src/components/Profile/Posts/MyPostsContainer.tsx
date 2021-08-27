@@ -1,27 +1,26 @@
-import {
-    addPostActionCreator,
-    InitialStateType,
-} from "../../../redux/reducers/profileReducer";
+import {addPostActionCreator, InitialStateType,} from "../../../redux/reducers/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {useDispatch, useSelector} from "react-redux";
 import {StoreType} from "../../../redux/redux-store";
+import React, {useCallback, useMemo} from 'react'
 
-const MyPostContainerComponent = () => {
+const MyPostContainerComponent = React.memo(() => {
 
-    const dispatch = useDispatch()
-    const postState = useSelector<StoreType, InitialStateType>(state => state.profileReducer)
+        const dispatch = useDispatch()
+        const postState = useSelector<StoreType, InitialStateType>(state => state.profileReducer)
+        const posts = useMemo(() => postState, [postState])
 
+        const addPostCallback = useCallback((newPostText: string) => {
+            dispatch(addPostActionCreator(newPostText))
+        }, [dispatch])
 
-    const addPostCallback = (newPostText:string) => {
-        dispatch(addPostActionCreator(newPostText))
+        return <MyPosts
+            posts={posts.posts}
+            addPostCallback={addPostCallback}
+        />
+
     }
-
-    return <MyPosts
-        posts={postState.posts}
-        addPostCallback={addPostCallback}
-    />
-
-}
+)
 
 export default MyPostContainerComponent;
 

@@ -18,6 +18,7 @@ const App = () => {
 
     const dispatch = useDispatch();
     const init = useSelector<StoreType, boolean>(state => state.app.initialized)
+    const myId = useSelector<StoreType, string | null>(state =>  state.authReducer.data.id)
     useEffect(() => {
         dispatch(initialize())
     }, [dispatch])
@@ -31,7 +32,7 @@ const App = () => {
                     <Route path={"/dialogs"} render={() => <DialogsContainerComponent/>}/>
                     <Route path={"/profile/:userId?"} render={() => <ProfileContainerComponent/>}/>
                     <Route path={"/users"} render={() => <UserContainerComponent/>}/>
-                    <Route path={'/'}  render={() => <Redirect to={'/profile'}/>}/>
+                    <Route path={'/'}  render={() => <Redirect to={'/profile/'+myId}/>}/>
                     <Route path={'/login'} render={() => <Login/>}/>
                     <HeaderContainerComponent/>
                     <Navbar/>

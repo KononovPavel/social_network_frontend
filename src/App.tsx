@@ -13,34 +13,35 @@ import {StoreType} from "./redux/redux-store";
 import Preloader from "./components/common/Preloader";
 
 
-const App = () => {
+const App = React.memo(() => {
 
 
-    const dispatch = useDispatch();
-    const init = useSelector<StoreType, boolean>(state => state.app.initialized)
-    const myId = useSelector<StoreType, string | null>(state =>  state.authReducer.data.id)
-    useEffect(() => {
-        dispatch(initialize())
-    }, [dispatch])
-    if(!init) {
-        return <Preloader/>
-    }
-    return (
-        <BrowserRouter>
-            <div className={'content'}>
-                <div className='app-wrapper'>
-                    <Route path={"/dialogs"} render={() => <DialogsContainerComponent/>}/>
-                    <Route path={"/profile/:userId?"} render={() => <ProfileContainerComponent/>}/>
-                    <Route path={"/users"} render={() => <UserContainerComponent/>}/>
-                    <Route path={'/'}  render={() => <Redirect to={'/profile/'+myId}/>}/>
-                    <Route path={'/login'} render={() => <Login/>}/>
-                    <HeaderContainerComponent/>
-                    <Navbar/>
+        const dispatch = useDispatch();
+        const init = useSelector<StoreType, boolean>(state => state.app.initialized)
+        const myId = useSelector<StoreType, string | null>(state => state.authReducer.data.id)
+        useEffect(() => {
+            dispatch(initialize())
+        }, [dispatch])
+        if (!init) {
+            return <Preloader/>
+        }
+        return (
+            <BrowserRouter>
+                <div className={'content'}>
+                    <div className='app-wrapper'>
+                        <Route path={"/dialogs"} render={() => <DialogsContainerComponent/>}/>
+                        <Route path={"/profile/:userId?"} render={() => <ProfileContainerComponent/>}/>
+                        <Route path={"/users"} render={() => <UserContainerComponent/>}/>
+                        <Route path={'/'} render={() => <Redirect to={'/profile/' + myId}/>}/>
+                        <Route path={'/login'} render={() => <Login/>}/>
+                        <HeaderContainerComponent/>
+                        <Navbar/>
+                    </div>
                 </div>
-            </div>
 
-        </BrowserRouter>
-    )
-}
+            </BrowserRouter>
+        )
+    }
+)
 
 export default App;

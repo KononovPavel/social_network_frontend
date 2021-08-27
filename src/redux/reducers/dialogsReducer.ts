@@ -73,7 +73,6 @@ let initialState = {
             image: "https://img2.freepng.ru/20180403/veq/kisspng-avatar-male-suit-clip-art-gender-5ac3b88ecd07e6.7368561215227762068398.jpg"
         }
     ],
-    newMessage: "",
 }
 export type InitialStateType = typeof initialState
 

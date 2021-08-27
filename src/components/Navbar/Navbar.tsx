@@ -7,7 +7,7 @@ import {StoreType} from "../../redux/redux-store";
 
 
 export const Navbar = React.memo(() => {
-    const myId = useSelector<StoreType, string | null>(state =>  state.authReducer.data.id)
+    const myId = useSelector<StoreType, string | null>(state => state.authReducer.data.id)
         return (
             <nav className={n.nav}>
                 <div className={n.Item}><NavLink activeClassName={n.active} to={`/profile/${myId}`}>Profile</NavLink></div>

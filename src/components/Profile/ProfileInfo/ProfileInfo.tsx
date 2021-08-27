@@ -14,11 +14,10 @@ export const ProfileInfo: React.FC<PropsType> = (props) => {
     let noPhotoURL = 'https://st4.depositphotos.com/7323516/23928/i/600/depositphotos_239287058-stock-photo-a-sign-can-not-be.jpg'
 
     let [edit, setEdit] = useState(false)
-    let [status, setStatus] = useState('')
+    let [status, setStatus] = useState(props.status)
 
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
         setStatus(e.currentTarget.value)
     }
     const changeStatus = () => {
@@ -28,10 +27,7 @@ export const ProfileInfo: React.FC<PropsType> = (props) => {
     }
 
     useEffect(() => {
-        debugger
-        if (status !== props.status) {
             setStatus(props.status)
-        }
     }, [props.status])
 
     if (!Object.keys(props.profileInfo).length) {
